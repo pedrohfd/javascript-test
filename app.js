@@ -40,8 +40,6 @@
     gameFilterButtons = forEach(item => {
       item.addEventListener('click', selectGame)
     })
-
-    getSelectedGame()
   }
 
   function loadGameContent() {
@@ -62,7 +60,6 @@
       button.style.color = gameData['types'][index]['color']
     })
     event.target.setAttribute('active', 'true')
-    getSelectedGame()
     event.target.style.background = selectedGame['color']
     event.target.style.color = '#fff'
     loadGameContent()
@@ -84,9 +81,4 @@
   function getElements(attribute) {
     return [...document.querySelectorAll(attribute)]
   }
-
-  function selectNumber(event) {
-    const selected
-  }
-  loadFilterButtons()
 })()
