@@ -12,7 +12,7 @@
   let deleteButtons
   const gameDescription = document.querySelector('.gameDescription')
   const gameName = document.querySelector('.gameName')
-  const gameFilterButtons = document.querySelector('.gameFilterButton')
+  const gameFilterButton = document.querySelector('.gameFilterButton')
   const gameNumbers = document.querySelector('.gameNumbers')
   const clearButton = document.querySelector('.clearButton')
   const cartButton = document.querySelector('.cartButton')
@@ -30,7 +30,7 @@
   })
 
   function loadFilterButtons() {
-    gameFilterButtons.innerHTML = [...gameData['types']]
+    gameFilterButton.innerHTML = [...gameData['types']]
       .map((game, index) => {
         return index === 0
           ? `<button class="selectGame" active="true" id=${game['type']} style="color: #FFFFFF; background:${game['color']}; border-color: ${game['color']}">${game['type']}</button>`
@@ -49,7 +49,7 @@
   function loadGameContent() {
     gameName.innerHTML = `<h2>NEW BET</h2>
     <h2 class="gameName">FOR ${selectedGame['type'].toUpperCase()}</h2>`
-    gameDescription.innerHTML = `<h4>Fill your bet</h4>
+    gameDescription.innerHTML = `<h4 style="margin-top: 28px;">Fill your bet</h4>
     <h4 class="gameDescription">${selectedGame['description']}</h4>`
 
     const range = selectedGame['range']
@@ -160,9 +160,9 @@
 
   async function loadCartContent() {
     const cartData = await getData('http://localhost:3000/games')
-    let cartGamesCompleted
+    let cartGames
     ;[...cartData].length
-      ? (cartGamesCompleted = cartData
+      ? (cartGames = cartData
           .map(item => {
             return `<div class="gameCard"><button class="deleteButton" id=${
               item.id
@@ -181,11 +181,11 @@
             )}</h4></div></div></div>`
           })
           .join(''))
-      : (cartGamesCompleted = '')
+      : (cartGames = '')
 
-    cartGamesCompleted === ''
+    cartGames === ''
       ? (cartItems.innerHTML = '<h2>CART EMPTY</h2>')
-      : (cartItems.innerHTML = `<h2>CART</h2> ${cartGamesCompleted}`)
+      : (cartItems.innerHTML = `<h2>CART</h2> ${cartGames}`)
 
     addEventListenerToDeleteButtons()
 
@@ -232,7 +232,7 @@
     const selectedNumbers = getElements('[selected]')
 
     if (selectedNumbers.length == selectedGame['max-number']) {
-      return window.alert('Your game is already completed.')
+      return window.alert('Seu jogo está completo')
     }
 
     let randomNumbers = selectedNumbers.map(item => {
