@@ -3,106 +3,90 @@
   padding: 0px;
   font-family: 'Helvetica', sans-serif;
   font-style: italic;
-  background-color: #f7f7f7;
   color: #707070;
 }
 
-.header {
+body {
+  background-color: #f7f7f7;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background: #f7f7f7;
+  max-width: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid #ebebeb;
-  margin-bottom: 73.5px;
+  align-items: center;
+  border: 2px solid #ebebeb;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 0 200px 0 130px;
 }
 
 .left,
-.right {
+.right,
+.logout {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .tgl {
-  margin: 15px 0px 4px 141px;
+  margin-right: 74px;
   font-size: 44px;
-  height: 53px;
-  width: 86px;
-}
-
-.home {
-  margin: 28px 0px 23.5px 74px;
-  font-size: 20px;
-  text-align: center;
-  height: 24px;
-  width: 56px;
-}
-
-.account {
-  margin: 28px 0px 23.5px 0px;
-  font-size: 20px;
-  text-align: center;
-  height: 24px;
-  width: 80px;
-}
-
-.logout {
-  margin: 28px 10px 23.5px 40px;
-  font-size: 20px;
-  text-align: center;
-  height: 24px;
-  width: 74px;
-}
-
-.logoutArrow {
-  margin: 7px 199.15px 0px 0px;
 }
 
 .greenLine {
-  position: absolute;
-  top: 73.2px;
-  left: 130px;
   background-color: #b5c401;
   width: 107px;
   height: 7px;
   border-radius: 6px;
 }
 
+.account {
+  margin-right: 40px;
+}
+
 .container {
+  margin-left: 130px;
+  margin-top: 42px;
   display: flex;
+  justify-content: space-between;
 }
 
 .dashboard {
-  display: flex;
-  flex-direction: column;
-  margin: 0px 0px 0px 130px;
+  max-width: 650px;
+  margin-top: 32px;
 }
 
 .gameName {
   display: flex;
-  margin-left: 5px;
+  margin-bottom: 33px;
   font-weight: 300;
 }
 
-.chooseAGame {
-  margin: 33px 0px 20px 0px;
-  font-size: 17px;
-  font-weight: bold;
-  color: #707070;
-}
-
 .gameFilterButton > button {
-  font-size: 14px;
+  border-radius: 100px;
   width: 113px;
   height: 34px;
-  border: 2px solid;
+  background: #ffffff;
   font-weight: bold;
-  border-radius: 28px;
-  background-color: transparent;
-  margin-right: 25px;
+  margin-right: 20px;
+  font-size: 14px;
 }
 
 .gameDescription {
-  margin: 4px 0px 0px 0px;
+  width: 648px;
+  height: 62px;
   color: #868686;
 }
 
@@ -115,4 +99,52 @@
   border: 1px solid #e2e2e2;
   border-radius: 10px;
   width: 317px;
+}
+
+.numbers {
+  background: #adc0c4;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-weight: bold;
+  font-size: 20px;
+  font-style: normal;
+  color: #ffffff;
+  margin: 10px 6px;
+}
+
+.numbers[selected='true'] {
+  background: #27c383;
+}
+
+.completeButton,
+.clearButton {
+  border: 1px solid #27c383;
+  border-radius: 10px;
+  color: #27c383;
+  padding: 16px 24px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 25px;
+}
+
+.cartButton {
+  display: flex;
+  align-items: center;
+  background: #27c383;
+  border: 1px solid #27c383;
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 14px 42px 14px 22px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.cartButton span {
+  background-color: transparent;
+  color: #ffffff;
+  margin-right: 24px;
 }
