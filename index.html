@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TGL</title>
     <link rel="stylesheet" href="./style.css" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <header>
@@ -17,41 +13,42 @@
         <h1 class="tgl">TGL</h1>
         <h3 class="home">Home</h3>
       </section>
-      <section>
+      <section class="menu">
         <h3 class="account">Account</h3>
         <h3 class="logout">
-          Logout <i class="material-icons-outlined"> arrow_forward </i>
+          Logout <img src="assets/arrow.svg" class="betSaveArrow" />
         </h3>
       </section>
     </header>
 
     <main>
-      <div id="dashboard">
+      <div class="dashboard">
         <h1 class="title">
           NEW BET <span class="gameName">FOR MEGA SENA</span>
         </h1>
         <label class="subtitle">Choose a game</label>
         <div class="gameTypes" id="game-types"></div>
         <label class="betTitle">Fill your bet</label>
+        <br />
         <span class="betDescription" id="description"></span>
 
         <div id="bet-numbers" class="betNumbers"></div>
 
         <div class="betOptions">
-          <button class="betComplete button" onclick="Play.completeGame()">
+          <button class="betComplete button" onclick="Play.handleCompleteGame()">
             Complete Game
           </button>
-          <button class="betClear button" onclick="Play.clearGame()">
+          <button class="betClear button" onclick="Play.handleClearGame()">
             Clear Game
           </button>
-          <button class="betAddCart button" onclick="Play.addToCart()">
-            <i class="material-icons-outlined">shopping_cart</i>
+          <button class="betAddCart button" onclick="Play.handleAddToCart()">
+            <img class="betCartIcon" src="assets/cart.svg" />
             Add to Cart
           </button>
         </div>
       </div>
 
-      <div id="cart">
+      <div class="cart">
         <h1 class="cartTitle">CART</h1>
         <div class="cartList" id="cart-list"></div>
         <div class="cartTotal">
@@ -61,7 +58,7 @@
 
         <button class="betSaveButton">
           Save
-          <i class="material-icons-outlined">arrow_forward</i>
+          <img src="assets/arrow.svg" class="betSaveArrow" />
         </button>
       </div>
     </main>
