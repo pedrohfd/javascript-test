@@ -1,273 +1,214 @@
-;(async function () {
-  async function getGameData(json) {
-    const response = await fetch(json)
-    const results = await response.json()
-    return results
-  }
+const ajax = new XMLHttpRequest()
+const numbers = document.querySelector('bet-numbers')
+const cardList = document.querySelector('cart-list')
+const totalPrice = document.querySelector('total-price')
+const gamesList = document.querySelector('game-types')
+const gamesDescription = document.querySelector('description')
 
-  const gameData = await getGameData('./games.json')
-  let selectedGame = []
+let data = []
+let selectedNumber = []
+let cart = []
+let currentGameMaxNumbers = 0
+let currentGameRange = 0
+let currentGamePrice = 0
+let currentGameType = ''
 
-  let selectGameButtons = []
-  let deleteButtons
-  const gameDescription = document.querySelector('.gameDescription')
-  const gameName = document.querySelector('.gameName')
-  const gameFilterButton = document.querySelector('.gameFilterButton')
-  const gameNumbers = document.querySelector('.gameNumbers')
-  const clearButton = document.querySelector('.clearButton')
-  const cartButton = document.querySelector('.cartButton')
-  const cartItems = document.querySelector('.cartItems')
-  const completeButton = document.querySelector('.completeButton')
-  const saveButton = document.querySelector('.saveButton')
-  const cartValue = document.querySelector('.cartValue')
-
-  clearButton.addEventListener('click', clearGame)
-  cartButton.addEventListener('click', addToCart)
-  completeButton.addEventListener('click', getRandomNumbers)
-  saveButton.addEventListener('click', saveCart)
-  selectGameButtons.forEach(item => {
-    item.addEventListener('click', selectGame)
-  })
-
-  function loadFilterButtons() {
-    gameFilterButton.innerHTML = [...gameData['types']]
-      .map((game, index) => {
-        return index === 0
-          ? `<button class="selectGame" active="true" id=${game['type']} style="color: #FFFFFF; background:${game['color']}; border-color: ${game['color']}">${game['type']}</button>`
-          : `<button class="selectGame" id=${game['type']} style="color: ${game['color']}; border-color: ${game['color']}">${game['type']}</button>`
-      })
-      .join('')
-
-    selectGameButtons = getElements('.selectGame')
-    selectGameButtons.forEach(item => {
-      item.addEventListener('click', selectGame)
-    })
-
-    getSelectedGame()
-  }
-
-  function loadGameContent() {
-    gameName.innerHTML = `<h2>NEW BET</h2>
-    <h2 class="gameName">FOR ${selectedGame['type'].toUpperCase()}</h2>`
-    gameDescription.innerHTML = `<h4 style="margin-top: 28px;">Fill your bet</h4>
-    <h4 class="gameDescription">${selectedGame['description']}</h4>`
-
-    const range = selectedGame['range']
-
-    showNumbers(range)
-  }
-
-  function selectGame(event) {
-    selectGameButtons.forEach((item, index) => {
-      item.removeAttribute('active')
-      item.style.background = '#FFFFFF'
-      item.style.color = gameData['types'][index]['color']
-    })
-    event.target.setAttribute('active', 'true')
-    getSelectedGame()
-    event.target.style.background = selectedGame['color']
-    event.target.style.color = '#FFFFFF'
-    loadGameContent()
-  }
-
-  function showNumbers(range) {
-    let numbers = ''
-    for (let i = 1; i <= range; i++) {
-      numbers += `<button class="numbers" id=${i}>${i}</button>`
-    }
-    gameNumbers.innerHTML = numbers
-
-    const numbersSelectButton = getElements('.numbers')
-    numbersSelectButton.forEach(item => {
-      item.addEventListener('click', selectNumber)
-    })
-  }
-
-  function getElements(attribute) {
-    return [...document.querySelectorAll(attribute)]
-  }
-
-  function selectNumber(event) {
-    const selectedButtons = getElements('[selected]').length
-
-    if (event.target.hasAttribute('selected')) {
-      event.target.style.background = '#adc0c4'
-      return event.target.removeAttribute('selected')
-    }
-
-    if (selectedButtons === selectedGame['max-number']) {
-      return window.alert(
-        'Você já selecionou a quantidade máxima de números por jogo, caso queira trocar algum número você precisa primeiro desmarcar algum.'
-      )
-    }
-    event.target.style.background = selectedGame['color']
-    event.target.setAttribute('selected', 'true')
-  }
-
-  function clearGame() {
-    const numbers = getElements('[selected]')
-
-    numbers.forEach(item => {
-      item.style.background = '#adc0c4'
-      item.removeAttribute('selected')
-    })
-  }
-
-  function getSelectedGame() {
-    const activeGame = selectGameButtons.find(item => {
-      return item.hasAttribute('active')
-    }).id
-    selectedGame = gameData['types'].find(item => {
-      return item['type'] === activeGame
-    })
-  }
-
-  async function addToCart() {
-    const selectedNumbers = getElements('[selected]').map(item => {
-      return item.id
-    })
-
-    if (selectedNumbers.length < selectedGame['min-number'])
-      return window.alert(
-        `You need to mark at least ${selectedGame['min-number']} numbers`
-      )
-
-    await fetch('http://localhost:3000/games', {
-      mode: 'cors',
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        game: selectedGame['type'],
-        numbers: selectedNumbers,
-        price: selectedGame['price'],
-        color: selectedGame['color'],
-      }),
-    })
-    loadCartContent()
-    clearGame()
-  }
-
-  function formatValue(value) {
-    const formatter = new Intl.NumberFormat('pt-BR', {
+const Utils = {
+  formatCurrency(value) {
+    return (value = value.toLocaleString('pt-BR', {
       style: 'currency',
       currency: 'BRL',
-    })
-    return formatter.format(value)
-  }
+    }))
+  },
+}
 
-  async function loadCartContent() {
-    const cartData = await getData('http://localhost:3000/games')
-    let cartGames
-    ;[...cartData].length
-      ? (cartGames = cartData
-          .map(item => {
-            return `<div class="gameCard"><button class="deleteButton" id=${
-              item.id
-            }><i class="material-icons-outlined">delete</i></button><div class="cartDivisor" style="background: ${
-              item['color']
-            }" game=${
-              item['game']
-            }></div><div class="gameInfos"><h4 class="cartNumbers">${item[
-              'numbers'
-            ].join(', ')}</h4><div class="gameNamePrice"><h4 game=${
-              item['game']
-            } style="color: ${item['color']}">${
-              item['game']
-            }</h4><h4 class="gamePrice">${formatValue(
-              item['price']
-            )}</h4></div></div></div>`
-          })
-          .join(''))
-      : (cartGames = '')
+const Play = {
+  number: document.querySelector('input#number'),
 
-    cartGames === ''
-      ? (cartItems.innerHTML = '<h2>CART EMPTY</h2>')
-      : (cartItems.innerHTML = `<h2>CART</h2> ${cartGames}`)
+  selectNumber(index, maxLimit) {
+    let newEntry = index + 1
 
-    addEventListenerToDeleteButtons()
-
-    const finalValue = await getFinalValue()
-
-    finalValue
-      ? (cartValue.innerHTML = `<h2>CART</h2>
-    <h2 class="cartTotal">TOTAL: ${formatValue(finalValue)}</h2>`)
-      : (cartValue.innerHTML = `<h2>CART</h2>
-      <h2 class="cartTotal">TOTAL: R$ 00,00`)
-  }
-
-  function addEventListenerToDeleteButtons() {
-    deleteButtons = getElements('.deleteButton')
-
-    deleteButtons.forEach(item => {
-      item.addEventListener('click', deleteGame)
-    })
-  }
-
-  async function getFinalValue() {
-    const cartData = await getData('http://localhost:3000/games')
-    if (![...cartData].length) {
-      return 0
-    }
-    return [
-      ...cartData.map(item => {
-        return item['price']
-      }),
-    ].reduce((acc, cur) => {
-      return acc + cur
-    })
-  }
-
-  async function deleteGame(event) {
-    await fetch(`http://localhost:3000/games/${event.currentTarget.id}`, {
-      method: 'DELETE',
-    })
-    await loadCartContent()
-  }
-
-  function getRandomNumbers() {
-    const numbers = getElements('.numbers')
-    const selectedNumbers = getElements('[selected]')
-
-    if (selectedNumbers.length == selectedGame['max-number']) {
-      return window.alert('Seu jogo está completo')
-    }
-
-    let randomNumbers = selectedNumbers.map(item => {
-      return Number(item.id)
-    })
-
-    for (let i = 1; i < selectedGame['max-number']; i) {
-      const random = Math.floor(Math.random() * (selectedGame['range'] - 1)) + 1
-      randomNumbers.push(random)
-      randomNumbers = [...new Set(randomNumbers)]
-      i = randomNumbers.length
-    }
-
-    const activatedButtons = numbers.filter(item => {
-      return randomNumbers.includes(Number(item.id))
-    })
-
-    activatedButtons.forEach(item => {
-      item.style.background = selectedGame['color']
-      item.setAttribute('selected', 'true')
-    })
-  }
-
-  async function saveCart() {
-    const cartValue = await getFinalValue()
-    if (cartValue < gameData['min-cart-value']) {
-      return window.alert(
-        `The minimum value to make the purchase is ${formatValue(
-          gameData['min-cart-value']
-        )}`
+    if (selectedNumber.includes(newEntry)) {
+      selectedNumber.splice(selectedNumber.indexOf(newEntry), 1)
+      selectedNumber.sort((a, b) => a - b)
+      number[index].classList.remove('bet-number-selected')
+    } else if (selectedNumber.length >= maxLimit) {
+      alert(
+        `Já foram selecionados o número limite do jogo: ${maxLimit}, finalize adicionando ao carrinho. 🛒`
       )
+    } else {
+      selectedNumber.push(newEntry)
+      selectedNumber.sort((a, b) => a - b)
+      number[index].classList.add('bet-number-selected')
     }
-  }
+    console.log(selectedNumber)
+  },
 
-  loadFilterButtons()
-  loadGameContent()
-  loadCartContent()
-})()
+  completeGame() {
+    const min = 1
+    let max = currentGameMaxNumbers
+    let range = currentGameRange
+    let currentArray = []
+
+    for (i = 1; i <= range; i++) {
+      currentArray.push(i)
+    }
+
+    if (selectedNumber.length === 0) {
+      for (let i = 0; i < max; i++) {
+        let randomNum = Math.floor(Math.random() * range) + min
+        let check = selectedNumber.includes(randomNum)
+
+        if (check === false) {
+          selectedNumber.push(randomNum)
+          number[randomNum - 1].classList.add('bet-number-selected')
+        } else {
+          while (check === true) {
+            randomNum = Math.floor(Math.random() * range) + min
+            check = selectedNumber.includes(randomNum)
+            if (check === false) {
+              selectedNumber.push(randomNum)
+              number[randomNum - 1].classList.add('bet-number-selected')
+            }
+          }
+        }
+      }
+    }
+    if (selectedNumber.length > 0) {
+      let changedMax = max - selectedNumber.length
+      for (let i = 0; i < changedMax; i++) {
+        console.log('laço iniciado', i)
+        let randomNum = Math.floor(Math.random() * range) + min
+        let check = selectedNumber.includes(randomNum)
+
+        if (check === false) {
+          selectedNumber.push(randomNum)
+          number[randomNum - 1].classList.add('bet-number-selected')
+        } else {
+          while (check === true) {
+            randomNum = Math.floor(Math.random() * range) + min
+            check = selectedNumber.includes(randomNum)
+            if (check === false) {
+              selectedNumber.push(randomNum)
+              number[randomNum - 1].classList.add('bet-number-selected')
+            }
+          }
+        }
+      }
+    }
+  },
+
+  clearGame() {
+    selectedNumber.forEach(item => {
+      number[item - 1].classList.remove('bet-number-selected')
+    })
+    selectedNumber = []
+  },
+
+  addToCart() {
+    const listOfNumbers = selectedNumber.sort((a, b) => a - b).join()
+
+    let cardClass = ''
+    if (currentGameMaxNumbers === 15) {
+      cardClass = 'cart-card-lotofacil'
+    }
+    if (currentGameMaxNumbers === 6) {
+      cardClass = 'cart-card-megasena'
+    }
+    if (currentGameMaxNumbers === 5) {
+      cardClass = 'cart-card-quina'
+    }
+    cardList.innerHTML += `
+                            <div class="cart-card" id="card-${currentGameMaxNumbers}">
+                                <img src="assets/trash.svg" class="cart-card-icon" onclick="Play.deleteCart(${currentGameMaxNumbers})"/>
+                                    <div class="${cardClass}-content">
+                                        <span class="cart-card-numbers">
+                                        ${listOfNumbers}
+                                        </span>
+                                        <div class="cart-card-game">
+                                        <strong class="${cardClass}">${currentGameType}</strong>
+                                        <p class="cart-card-price">${Utils.formatCurrency(
+                                          currentGamePrice
+                                        )}</p>
+                                        </div>
+                                    </div>
+                            </div>
+                            `
+    cart.push({
+      id: currentGameMaxNumbers,
+      price: currentGamePrice,
+    })
+    this.calculateTotal()
+  },
+
+  deleteCart(id) {
+    const item = document.getElementById(`card-${id}`)
+    item.parentNode.removeChild(item)
+    cart.map((item, index) => {
+      if (item.id === id) {
+        cart.splice(index, 1)
+      }
+    })
+    this.calculateTotal()
+  },
+
+  calculateTotal() {
+    let cartTotal = 0
+    cart.map(item => {
+      cartTotal += item.price
+      return cartTotal
+    })
+    totalPrice.innerHTML = Utils.formatCurrency(cartTotal)
+  },
+}
+
+const getGame = {
+  getData() {
+    ajax.open('GET', 'games.json')
+    ajax.send()
+    ajax.addEventListener('readystatechange', () => {
+      if (ajax.readyState === 4 && ajax.status === 200) {
+        data = JSON.parse(ajax.responseText)
+        data.types.map(game => {
+          gamesList.innerHTML += `<button 
+                        id="${game.type}"
+                        style="border: 2px solid ${game.color}; color:${game.color}"
+                        class="game-button" 
+                        onclick="getGame.pickGame(${game['max-number']},${game.range},'${game.type}',${game.price},'${game.description}')">
+                        ${game.type}
+                      </button>`
+        })
+      }
+    })
+  },
+  pickGame(maxNumber, range, type, price, description) {
+    getGame.renderNumbers(maxNumber, range)
+    gamesDescription.innerHTML = description
+    currentGameMaxNumbers = maxNumber
+    currentGameRange = range
+    currentGameType = type
+    currentGamePrice = price
+  },
+  renderNumbers(maxNumber, maxRange) {
+    numbers.innerHTML = ''
+    selectedNumber = []
+
+    for (let index = 0; index < maxRange; index++) {
+      let html = `<input type="button" class="bet-number" value="${
+        index + 1
+      }" id="number" onclick="Play.selectNumber(${index},${maxNumber})">`
+      numbers.innerHTML += html
+    }
+  },
+}
+
+const App = {
+  init() {
+    getGame.getData()
+  },
+  reload() {
+    this.init()
+  },
+}
+
+App.init()

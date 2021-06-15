@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TGL</title>
     <link rel="stylesheet" href="./style.css" />
     <link
@@ -12,62 +13,61 @@
   </head>
   <body>
     <header>
-      <section class="left">
-        <section class="titleContainer">
-          <h1 class="tgl">TGL</h1>
-
-          <span class="greenLine"></span>
-        </section>
+      <section class="menu">
+        <h1 class="tgl">TGL</h1>
         <h3 class="home">Home</h3>
       </section>
-      <section class="right">
+      <section>
         <h3 class="account">Account</h3>
-
         <h3 class="logout">
-          Log out
-          <span class="material-icons-outlined logoutArrow">
-            arrow_forward
-          </span>
+          Logout <i class="material-icons-outlined"> arrow_forward </i>
         </h3>
       </section>
     </header>
-    <main class="container">
-      <div class="dashboard">
-        <label class="gameName"></label>
 
-        <h4>Choose a game</h4>
+    <main>
+      <div id="dashboard">
+        <h1 class="title">
+          NEW BET <span class="gameName">FOR MEGA SENA</span>
+        </h1>
+        <label class="subtitle">Choose a game</label>
+        <div class="gameTypes" id="game-types"></div>
+        <label class="betTitle">Fill your bet</label>
+        <span class="betDescription" id="description"></span>
 
-        <div class="gameFilterButton"></div>
+        <div id="bet-numbers" class="betNumbers"></div>
 
-        <label class="gameDescription"></label>
-
-        <div class="gameNumbers"></div>
-
-        <section class="buttonsArea">
-          <div class="gameButtons">
-            <button class="completeButton">Complete Game</button>
-
-            <button class="clearButton">Clear Game</button>
-          </div>
-          <button class="cartButton">
-            <span class="material-icons-outlined">shopping_cart</span>
-            Add to cart
+        <div class="betOptions">
+          <button class="betComplete button" onclick="Play.completeGame()">
+            Complete Game
           </button>
-        </section>
+          <button class="betClear button" onclick="Play.clearGame()">
+            Clear Game
+          </button>
+          <button class="betAddCart button" onclick="Play.addToCart()">
+            <i class="material-icons-outlined">shopping_cart</i>
+            Add to Cart
+          </button>
+        </div>
       </div>
-      <div class="cartArea">
-        <div class="cartItems"></div>
 
-        <div class="cartValue"></div>
-        <button class="saveButton">
-          <label>Save</label>
+      <div id="cart">
+        <h1 class="cartTitle">CART</h1>
+        <div class="cartList" id="cart-list"></div>
+        <div class="cartTotal">
+          <h1 class="totalTitle">CART <span class="totalText">TOTAL:</span></h1>
+          <p class="totalPrice" id="total-price"></p>
+        </div>
 
-          <span class="material-icons-outlined">arrow_forward</span>
+        <button class="betSaveButton">
+          Save
+          <i class="material-icons-outlined">arrow_forward</i>
         </button>
       </div>
     </main>
+
     <footer>
-      <h4>Copyright 2020 Luby Software</h4>
+      <span class="companyInfo">Copyright 2020 Luby Software</span>
     </footer>
     <script src="app.js"></script>
   </body>
