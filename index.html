@@ -15,9 +15,7 @@
       </section>
       <section class="menu">
         <h3 class="account">Account</h3>
-        <h3 class="logout">
-          Logout <img src="assets/arrow.svg" class="betSaveArrow" />
-        </h3>
+        <h3 class="logout">Logout <img src="assets/grayArrow.svg" /></h3>
       </section>
     </header>
 
@@ -28,21 +26,24 @@
         </h1>
         <label class="subtitle">Choose a game</label>
         <div class="gameTypes" id="game-types"></div>
-        <label class="betTitle">Fill your bet</label>
+        <label class="gameTitle">Fill your bet</label>
         <br />
-        <span class="betDescription" id="description"></span>
+        <span class="gameDescription" id="description"></span>
 
-        <div id="bet-numbers" class="betNumbers"></div>
+        <div id="bet-numbers" class="gameNumbers"></div>
 
-        <div class="betOptions">
-          <button class="betComplete button" onclick="Play.handleCompleteGame()">
+        <div class="gameOptions">
+          <button
+            class="gameComplete button"
+            onclick="Game.handleCompleteGame()"
+          >
             Complete Game
           </button>
-          <button class="betClear button" onclick="Play.handleClearGame()">
+          <button class="gameClear button" onclick="Game.handleClearGame()">
             Clear Game
           </button>
-          <button class="betAddCart button" onclick="Play.handleAddToCart()">
-            <img class="betCartIcon" src="assets/cart.svg" />
+          <button class="gameAddCart button" onclick="Game.handleAddToCart()">
+            <img class="gameCartIcon" src="assets/cart.svg" />
             Add to Cart
           </button>
         </div>
@@ -56,9 +57,9 @@
           <p class="totalPrice" id="total-price"></p>
         </div>
 
-        <button class="betSaveButton">
+        <button class="gameSaveButton">
           Save
-          <img src="assets/arrow.svg" class="betSaveArrow" />
+          <img src="assets/greenArrow.svg" class="gameSaveArrow" />
         </button>
       </div>
     </main>

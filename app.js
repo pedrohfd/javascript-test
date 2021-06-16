@@ -13,7 +13,7 @@ let currentGameRange = 0
 let currentGamePrice = 0
 let currentGameType = ''
 
-const Utils = {
+const Money = {
   formatCurrency(value) {
     return (value = value.toLocaleString('pt-BR', {
       style: 'currency',
@@ -22,7 +22,7 @@ const Utils = {
   },
 }
 
-const Play = {
+const Game = {
   number: document.querySelector('input#number'),
 
   handleSelectNumber(index, maxLimit) {
@@ -31,17 +31,14 @@ const Play = {
     if (selectedNumber.includes(newEntry)) {
       selectedNumber.splice(selectedNumber.indexOf(newEntry), 1)
       selectedNumber.sort((a, b) => a - b)
-      number[index].classList.remove('betNumberSelected')
+      number[index].classList.remove('numberSelected')
     } else if (selectedNumber.length >= maxLimit) {
-      alert(
-        `Já foram selecionados o número limite do jogo: ${maxLimit}, finalize adicionando ao carrinho. 🛒`
-      )
+      alert(`Ja foram selecionado a quantidade maxima de números: ${maxLimit}`)
     } else {
       selectedNumber.push(newEntry)
       selectedNumber.sort((a, b) => a - b)
-      number[index].classList.add('betNumberSelected')
+      number[index].classList.add('numberSelected')
     }
-    console.log(selectedNumber)
   },
 
   handleCompleteGame() {
@@ -61,14 +58,14 @@ const Play = {
 
         if (check === false) {
           selectedNumber.push(randomNum)
-          number[randomNum - 1].classList.add('betNumberSelected')
+          number[randomNum - 1].classList.add('numberSelected')
         } else {
           while (check === true) {
             randomNum = Math.floor(Math.random() * range) + min
             check = selectedNumber.includes(randomNum)
             if (check === false) {
               selectedNumber.push(randomNum)
-              number[randomNum - 1].classList.add('betNumberSelected')
+              number[randomNum - 1].classList.add('numberSelected')
             }
           }
         }
@@ -77,20 +74,19 @@ const Play = {
     if (selectedNumber.length > 0) {
       let changedMax = max - selectedNumber.length
       for (let i = 0; i < changedMax; i++) {
-        console.log('laço iniciado', i)
         let randomNum = Math.floor(Math.random() * range) + min
         let check = selectedNumber.includes(randomNum)
 
         if (check === false) {
           selectedNumber.push(randomNum)
-          number[randomNum - 1].classList.add('betNumberSelected')
+          number[randomNum - 1].classList.add('numberSelected')
         } else {
           while (check === true) {
             randomNum = Math.floor(Math.random() * range) + min
             check = selectedNumber.includes(randomNum)
             if (check === false) {
               selectedNumber.push(randomNum)
-              number[randomNum - 1].classList.add('betNumberSelected')
+              number[randomNum - 1].classList.add('numberSelected')
             }
           }
         }
@@ -100,7 +96,7 @@ const Play = {
 
   handleClearGame() {
     selectedNumber.forEach(item => {
-      number[item - 1].classList.remove('betNumberSelected')
+      number[item - 1].classList.remove('numberSelected')
     })
     selectedNumber = []
   },
@@ -120,14 +116,14 @@ const Play = {
     }
     cardList.innerHTML += `
                             <div class="cartCard" id="card-${currentGameMaxNumbers}">
-                                <img src="assets/trash.svg" class="cartCardIcon" onclick="Play.handleDeleteCart(${currentGameMaxNumbers})"/>
+                                <img src="assets/trash.svg" class="cartCardIcon" onclick="Game.handleDeleteCart(${currentGameMaxNumbers})"/>
                                 <div class="${cardClass}Content">
                                     <span class="cartCardNumbers">
                                       ${listOfNumbers}
                                     </span>
                                     <div class="cartCardGame">
                                       <strong class="${cardClass}">${currentGameType}</strong>
-                                      <p class="cartCardPrice">${Utils.formatCurrency(
+                                      <p class="cartCardPrice">${Money.formatCurrency(
                                         currentGamePrice
                                       )}</p>
                                     </div>
@@ -158,7 +154,7 @@ const Play = {
       cartTotal += item.price
       return cartTotal
     })
-    totalPrice.innerHTML = Utils.formatCurrency(cartTotal)
+    totalPrice.innerHTML = Money.formatCurrency(cartTotal)
   },
 }
 
@@ -170,10 +166,11 @@ const getGame = {
       if (ajax.readyState === 4 && ajax.status === 200) {
         data = JSON.parse(ajax.responseText)
         data.types.map(game => {
-          gamesList.innerHTML += `<button 
+          gamesList.innerHTML += `
+                      <button 
                         id="${game.type}"
-                        style="border: 2px solid ${game.color}; color:${game.color}; "
-                        class="gameButton" 
+                        style="border: 2px solid ${game.color}; "
+                        class="gameButton ${game.type}" 
                         onclick="getGame.handlePickGame(${game['max-number']},${game.range},'${game.type}',${game.price},'${game.description}')">
                         ${game.type}
                       </button>`
@@ -194,9 +191,9 @@ const getGame = {
     selectedNumber = []
 
     for (let index = 0; index < maxRange; index++) {
-      let html = `<input type="button" class="betNumber" value="${
+      let html = `<input type="button" class="gameNumber" value="${
         index + 1
-      }" id="number" onclick="Play.handleSelectNumber(${index},${maxNumber})">`
+      }" id="number" onclick="Game.handleSelectNumber(${index},${maxNumber})">`
       numbers.innerHTML += html
     }
   },

@@ -28,8 +28,18 @@ button {
   cursor: pointer;
 }
 
-.gameButton:hover {
-  opacity: 0.7;
+.Lotofácil:hover {
+  transition: 0.2s;
+  background: #7f3992;
+  color: #fff;
+}
+
+.Mega-Sena:hover {
+  transition: 0.2s;
+}
+
+.Quina:hover {
+  transition: 0.2s;
 }
 
 .button {
@@ -65,7 +75,6 @@ header {
   top: 0.3rem;
   padding-bottom: 0.4rem;
   font-size: 44px;
-  font-style: italic;
   margin: 0.9rem 4rem 0.25rem 9rem;
   border-bottom: 6px solid #b5c401;
   border-radius: 4px;
@@ -74,21 +83,19 @@ header {
 .home {
   color: #707070;
   font-size: 1.3rem;
-  font-style: italic;
 }
 
 .account {
   color: #707070;
   margin-right: 3rem;
   font-size: 1.3rem;
-  font-style: italic;
 }
 
 .logout {
   color: #707070;
   margin-right: 14rem;
   font-size: 1.3rem;
-  font-style: italic;
+  text-align: center;
 }
 
 main {
@@ -106,7 +113,6 @@ main {
 .title {
   color: #707070;
   font-size: 1.5rem;
-  font-style: italic;
   margin-bottom: 2.063rem;
 }
 
@@ -126,25 +132,24 @@ main {
   margin-top: 1.25rem;
 }
 
-.betTitle {
+.gameTitle {
   color: #868686;
   font-size: 1.2rem;
   font-weight: bold;
-  font-style: italic;
   margin-top: 2.25rem;
   margin-bottom: 0.3rem;
 }
 
-.betDescription {
+.gameDescription {
   color: #868686;
   font-size: 1.2rem;
 }
 
-.betNumbers {
+.gameNumbers {
   margin-top: 1.75rem;
 }
 
-.betNumber {
+.gameNumber {
   border: 0;
   color: white;
   background: #adc0c4;
@@ -156,25 +161,25 @@ main {
   margin: 0.6rem 0.6rem;
 }
 
-.betNumberSelected {
-  background: #01ac66;
+.numberSelected {
+  background: #707070;
 }
 
-.betOptions {
+.gameOptions {
   margin-top: 2.75rem;
 }
 
-.betComplete {
+.gameComplete {
   border: 1px solid #01ac66;
   color: #01ac66;
 }
 
-.betClear {
+.gameClear {
   border: 1px solid #01ac66;
   color: #01ac66;
 }
 
-.betAddCart {
+.gameAddCart {
   text-align: center;
   margin-left: 9rem;
   border: 0px solid #01ac66;
@@ -182,10 +187,28 @@ main {
   color: white;
 }
 
-.betCartIcon {
+.gameCartIcon {
   width: 1.25rem;
   height: 1.25rem;
   margin-right: 0.2rem;
+  color: white;
+}
+
+.gameSaveButton {
+  width: 100%;
+  height: 6rem;
+  border: 0;
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+  background: #ebebeb;
+  color: #01ac66;
+  font-size: 2.25rem;
+  font-weight: bold;
+}
+
+.gameSaveArrow {
+  width: 1.75rem;
+  height: 1.5rem;
   color: white;
 }
 
@@ -200,7 +223,6 @@ main {
   color: #868686;
   font-size: 1.5rem;
   font-weight: bold;
-  font-style: italic;
   margin-top: 2.25rem;
   margin-bottom: 2.25rem;
   margin-left: 1.25rem;
@@ -250,7 +272,6 @@ main {
   color: #868686;
   font-size: 0.9rem;
   font-weight: bold;
-  font-style: italic;
   margin-bottom: 0.5rem;
 }
 
@@ -263,7 +284,6 @@ main {
   font-size: 1rem;
   color: #7f3992;
   font-weight: bold;
-  font-style: italic;
   margin-right: 0.9rem;
 }
 
@@ -271,7 +291,6 @@ main {
   font-size: 1rem;
   color: #01ac66;
   font-weight: bold;
-  font-style: italic;
   margin-right: 0.9rem;
 }
 
@@ -279,7 +298,6 @@ main {
   font-size: 1rem;
   color: #f79c31;
   font-weight: bold;
-  font-style: italic;
   margin-right: 0.9rem;
 }
 
@@ -287,7 +305,6 @@ main {
   color: #868686;
   font-size: 0.9rem;
   font-weight: 200;
-  font-style: italic;
 }
 
 .cartTotal {
@@ -300,13 +317,11 @@ main {
 .totalTitle {
   color: #707070;
   font-size: 1.5rem;
-  font-style: italic;
 }
 
 .totalText {
   color: #707070;
   font-size: 1.5rem;
-  font-style: italic;
   font-weight: 100;
   margin-right: 0.5rem;
 }
@@ -314,27 +329,7 @@ main {
 .totalPrice {
   color: #707070;
   font-size: 1.5rem;
-  font-style: italic;
   font-weight: 100;
-}
-
-.betSaveButton {
-  width: 100%;
-  height: 6rem;
-  border: 0;
-  border-bottom-left-radius: 0.6rem;
-  border-bottom-right-radius: 0.6rem;
-  background: #ebebeb;
-  color: #01ac66;
-  font-size: 2.25rem;
-  font-weight: bold;
-  font-style: italic;
-}
-
-.betSaveArrow {
-  width: 1.75rem;
-  height: 1.5rem;
-  color: white;
 }
 
 footer {
