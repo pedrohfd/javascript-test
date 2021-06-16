@@ -19,6 +19,7 @@ button {
 .gameButton {
   width: 7rem;
   height: 2rem;
+  border: 0.125rem solid;
   border-radius: 6.25rem;
   font-size: 0.9rem;
   font-weight: bold;
@@ -28,18 +29,37 @@ button {
   cursor: pointer;
 }
 
+.Lotofácil {
+  border-color: #7f3992;
+  color: #7f3992;
+}
+
 .Lotofácil:hover {
   transition: 0.2s;
   background: #7f3992;
   color: #fff;
 }
 
+.Mega-Sena {
+  border-color: #01ac66;
+  color: #01ac66;
+}
+
 .Mega-Sena:hover {
   transition: 0.2s;
+  background: #01ac66;
+  color: #fff;
+}
+
+.Quina {
+  border-color: #f79c31;
+  color: #f79c31;
 }
 
 .Quina:hover {
   transition: 0.2s;
+  background: #f79c31;
+  color: #fff;
 }
 
 .button {
@@ -50,10 +70,6 @@ button {
   font-weight: bold;
   background: transparent;
   margin-right: 1.25rem;
-}
-
-.button:hover {
-  opacity: 0.7;
 }
 
 header {
@@ -161,8 +177,13 @@ main {
   margin: 0.6rem 0.6rem;
 }
 
+.gameNumber:hover {
+  transition: 0.2s;
+  background: #96a7ab;
+}
+
 .numberSelected {
-  background: #707070;
+  background: #96a7ab;
 }
 
 .gameOptions {
@@ -174,9 +195,21 @@ main {
   color: #01ac66;
 }
 
+.gameComplete:hover {
+  transition: 0.2s;
+  background: #01ac66;
+  color: #ffffff;
+}
+
 .gameClear {
   border: 1px solid #01ac66;
   color: #01ac66;
+}
+
+.gameClear:hover {
+  transition: 0.2s;
+  background: #01ac66;
+  color: #ffffff;
 }
 
 .gameAddCart {
@@ -185,6 +218,11 @@ main {
   border: 0px solid #01ac66;
   background: #01ac66;
   color: white;
+}
+
+.gameAddCart:hover {
+  transition: 0.2s;
+  background: #016b3f;
 }
 
 .gameCartIcon {

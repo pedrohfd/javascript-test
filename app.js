@@ -104,6 +104,8 @@ const Game = {
   handleAddToCart() {
     const listOfNumbers = selectedNumber.sort((a, b) => a - b).join()
 
+    isFill(listOfNumbers)
+
     let cardClass = ''
     if (currentGameMaxNumbers === 15) {
       cardClass = 'cartCardLotofacil'
@@ -114,6 +116,7 @@ const Game = {
     if (currentGameMaxNumbers === 5) {
       cardClass = 'cartCardQuina'
     }
+
     cardList.innerHTML += `
                             <div class="cartCard" id="card-${currentGameMaxNumbers}">
                                 <img src="assets/trash.svg" class="cartCardIcon" onclick="Game.handleDeleteCart(${currentGameMaxNumbers})"/>
@@ -169,7 +172,6 @@ const getGame = {
           gamesList.innerHTML += `
                       <button 
                         id="${game.type}"
-                        style="border: 2px solid ${game.color}; "
                         class="gameButton ${game.type}" 
                         onclick="getGame.handlePickGame(${game['max-number']},${game.range},'${game.type}',${game.price},'${game.description}')">
                         ${game.type}
@@ -206,6 +208,11 @@ const App = {
   reload() {
     this.init()
   },
+}
+
+function isFill(num) {
+  if (num === [] || num === null) {
+  }
 }
 
 App.init()
