@@ -104,8 +104,6 @@ const Game = {
   handleAddToCart() {
     const listOfNumbers = selectedNumber.sort((a, b) => a - b).join()
 
-    isFill(listOfNumbers)
-
     let cardClass = ''
     if (currentGameMaxNumbers === 15) {
       cardClass = 'cartCardLotofacil'
@@ -166,20 +164,45 @@ const getGame = {
     ajax.open('GET', 'games.json')
     ajax.send()
     ajax.addEventListener('readystatechange', () => {
+      // if (ajax.readyState === 4 && ajax.status === 200) {
+      //   data = JSON.parse(ajax.responseText)
+      //   data.types.map((game, index) => {
+      //     gamesList.innerHTML += `
+      //                 <button
+      //                   id="${game.type}"
+      //                   class="gameButton ${game.type}"
+      //                   onclick="getGame.handlePickGame(${game['max-number']},${game.range},'${game.type}',${game.price},'${game.description}')">
+      //                   ${game.type}
+      //                 </button>`
+      //   })
+      // }
       if (ajax.readyState === 4 && ajax.status === 200) {
         data = JSON.parse(ajax.responseText)
-        data.types.map(game => {
-          gamesList.innerHTML += `
-                      <button 
-                        id="${game.type}"
-                        class="gameButton ${game.type}" 
-                        onclick="getGame.handlePickGame(${game['max-number']},${game.range},'${game.type}',${game.price},'${game.description}')">
-                        ${game.type}
-                      </button>`
-        })
+        gamesList.innerHTML = [...data.types]
+          .map((game, index) => {
+            return index === 0
+              ? `
+                          <button 
+                            id="${game.type}"
+                            active="true"
+                            class="gameButton ${game.type}" 
+                            onclick="getGame.handlePickGame(${game['max-number']},${game.range},'${game.type}',${game.price},'${game.description}')">
+                            ${game.type}
+                           </button>`
+              : `
+                          <button 
+                            id="${game.type}"
+                            class="gameButton ${game.type}" 
+                            onclick="getGame.handlePickGame(${game['max-number']},${game.range},'${game.type}',${game.price},'${game.description}')">
+                            ${game.type}
+                          </button>
+                          `
+          })
+          .join('')
       }
     })
   },
+
   handlePickGame(maxNumber, range, type, price, description) {
     getGame.renderNumbers(maxNumber, range)
     gamesDescription.innerHTML = description
@@ -188,6 +211,7 @@ const getGame = {
     currentGameType = type
     currentGamePrice = price
   },
+
   renderNumbers(maxNumber, maxRange) {
     numbers.innerHTML = ''
     selectedNumber = []
@@ -206,13 +230,8 @@ const App = {
     getGame.getData()
   },
   reload() {
-    this.init()
+    App.init()
   },
-}
-
-function isFill(num) {
-  if (num === [] || num === null) {
-  }
 }
 
 App.init()

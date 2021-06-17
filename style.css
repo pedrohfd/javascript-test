@@ -11,67 +11,6 @@ body {
   font-style: italic;
 }
 
-input,
-button {
-  cursor: pointer;
-}
-
-.gameButton {
-  width: 7rem;
-  height: 2rem;
-  border: 0.125rem solid;
-  border-radius: 6.25rem;
-  font-size: 0.9rem;
-  font-weight: bold;
-  background: transparent;
-  margin-right: 1.25rem;
-  margin-bottom: 1.75rem;
-  cursor: pointer;
-}
-
-.Lotofácil {
-  border-color: #7f3992;
-  color: #7f3992;
-}
-
-.Lotofácil:hover {
-  transition: 0.2s;
-  background: #7f3992;
-  color: #fff;
-}
-
-.Mega-Sena {
-  border-color: #01ac66;
-  color: #01ac66;
-}
-
-.Mega-Sena:hover {
-  transition: 0.2s;
-  background: #01ac66;
-  color: #fff;
-}
-
-.Quina {
-  border-color: #f79c31;
-  color: #f79c31;
-}
-
-.Quina:hover {
-  transition: 0.2s;
-  background: #f79c31;
-  color: #fff;
-}
-
-.button {
-  width: 10.25rem;
-  height: 3.25rem;
-  border-radius: 0.7rem;
-  font-size: 0.9rem;
-  font-weight: bold;
-  background: transparent;
-  margin-right: 1.25rem;
-}
-
 header {
   height: 5rem;
   display: flex;
@@ -141,6 +80,67 @@ main {
   font-size: 1.2rem;
   font-weight: bold;
   margin: 0;
+}
+
+input,
+button {
+  cursor: pointer;
+}
+
+.gameButton {
+  width: 7rem;
+  height: 2rem;
+  border: 0.125rem solid;
+  border-radius: 6.25rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background: transparent;
+  margin-right: 1.25rem;
+  margin-bottom: 1.75rem;
+  cursor: pointer;
+}
+
+.Lotofácil {
+  border-color: #7f3992;
+  color: #7f3992;
+}
+
+.Lotofácil:hover {
+  transition: 0.2s;
+  background: #7f3992;
+  color: #fff;
+}
+
+.Mega-Sena {
+  border-color: #01ac66;
+  color: #01ac66;
+}
+
+.Mega-Sena:hover {
+  transition: 0.2s;
+  background: #01ac66;
+  color: #fff;
+}
+
+.Quina {
+  border-color: #f79c31;
+  color: #f79c31;
+}
+
+.Quina:hover {
+  transition: 0.2s;
+  background: #f79c31;
+  color: #fff;
+}
+
+.button {
+  width: 10.25rem;
+  height: 3.25rem;
+  border-radius: 0.7rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background: transparent;
+  margin-right: 1.25rem;
 }
 
 .gameTypes {
