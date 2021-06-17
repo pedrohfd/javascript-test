@@ -30,19 +30,16 @@
         <br />
         <span class="gameDescription" id="description"></span>
 
-        <div id="bet-numbers" class="gameNumbers"></div>
+        <div id="numbers" class="gameNumbers"></div>
 
         <div class="gameOptions">
-          <button
-            class="gameComplete button"
-            onclick="Game.handleCompleteGame()"
-          >
+          <button class="gameComplete button" id="completeGameButton">
             Complete Game
           </button>
-          <button class="gameClear button" onclick="Game.handleClearGame()">
+          <button class="gameClear button" id="clearGameButton">
             Clear Game
           </button>
-          <button class="gameAddCart button" onclick="Game.handleAddToCart()">
+          <button class="gameAddCart button" id="addToCartButton">
             <img class="gameCartIcon" src="assets/cart.svg" />
             Add to Cart
           </button>
